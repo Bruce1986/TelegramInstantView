@@ -1,0 +1,12 @@
+title: //title[normalize-space()]
+body!: //div[@class="entry-content"]
+@remove: //div[@class="art-tag"]
+@remove: //div[@class="inside_AD"]
+@remove: //div[@class="rps_item"]
+@remove: //div[@class="rps_sldrtitle"]
+@remove: //a[@class="rps_prev"]
+@remove: //a[@class="rps_next"]
+@remove: //div[@style="padding-top:10px; clear:both;"]
+@remove: //li
+@remove: //ui
+@remove: //h3
