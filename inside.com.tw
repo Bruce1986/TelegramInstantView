@@ -1,39 +1,22 @@
 ~version: "2.1"
 
 # www.inside.com.tw
-# NOTE: class 名稱為推測值，請在 IV 編輯器右側原始碼核對後修正。
-# 範例頁：/article/41134-google-cloud-next-new-tpu-ai-chips-compete-with-nvidia
 
-title: //h1[contains(@class, "post_title")] | //h1 | //meta[@property="og:title"]/@content
-body!: //div[contains(@class, "post_content")] | //article
-
-subtitle:       //meta[@property="og:description"]/@content
-author:         //a[contains(@class, "post_author")] | //meta[@name="author"]/@content
-author_url:     //a[contains(@class, "post_author")]/@href
-published_date: //time/@datetime | //meta[@property="article:published_time"]/@content
+title:          //h1[contains(@class, "post_header_title")]
+subtitle:       //div[contains(@class, "post_introduction")]
+author:         //div[contains(@class, "post_author_g")]//a[@rel="author"]
+author_url:     //div[contains(@class, "post_author_g")]//a[@rel="author"]/@href
+published_date: //li[contains(@class, "post_date")]//span
 site_name:      "INSIDE"
 
-cover: //div[contains(@class, "post_cover")]//img | (//div[contains(@class, "post_content")]//img)[1]
+body: //section[contains(@class, "js-article-content-body")]
 
-# 修正延遲載入圖片 (lazy-load)
-@set_attr(src, @data-src):      $body//img[@data-src]
-@set_attr(src, @data-original): $body//img[@data-original]
+# 阻止 IV 去抓相關文章子頁
+@remove: //meta[@property="og:see_also"]
 
-# 清掉雜訊
+# 清掉內文雜訊
+@remove: $body//div[contains(@class, "ad-content")]
+@remove: $body//div[contains(@class, "tmgad")]
+@remove: $body//ul[.//li[contains(@class, "post_title")]]
 @remove: $body//script
 @remove: $body//style
-@remove: $body//ins
-@remove: $body//div[contains(@class, "ad")]
-@remove: $body//div[contains(@class, "advertisement")]
-@remove: $body//div[contains(@class, "share")]
-@remove: $body//div[contains(@class, "social")]
-@remove: $body//div[contains(@class, "related")]
-@remove: $body//div[contains(@class, "recommend")]
-@remove: $body//div[contains(@class, "newsletter")]
-@remove: $body//div[contains(@class, "subscribe")]
-@remove: $body//div[contains(@class, "tag")]
-@remove: $body//div[contains(@class, "author")]
-@remove: $body//iframe[contains(@src, "doubleclick")]
-
-# 移除空段落
-@remove: $body//p[not(normalize-space())][not(.//img)]
